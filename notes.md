@@ -84,4 +84,22 @@ ttl a
 # extend the expiry
 # expire <key> <new-expiry-in-seconds>
 extend a 60
+
+# expire at Unix timestamp
+set a b exat 1766010100
+
+# expiry in milliseconds
+set b c px 3000  # 3000 milliseconds
+
+# if you have a TTL set on a key and you change the value associated with that key, the expiry will be gone
+set a b ex 60
+ttl a -> 60
+set a c
+ttl a -> -1
+
+# how to keep TTL?
+set a b ex 60
+ttl a -> 60
+set a c keepttl
+ttl a -> 55
 ```
